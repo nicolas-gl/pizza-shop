@@ -1,19 +1,12 @@
-import React from 'react'
 import styles from './Main.module.scss'
 import Card from './Card';
+import Categories from './Categories';
 
-export default function Main() {
+export default function Main({ items }) {
   return (
     <>
       <div className={styles.mainHeader}>
-        <div className={styles.filter}>
-          <button>Все</button>
-          <button>Мясные</button>
-          <button>Вегетарианская</button>
-          <button>Гриль</button>
-          <button>Острые</button>
-          <button>Закрытые</button>
-        </div>
+        <Categories />
         <div className={styles.sorter}>
           <div className={styles.triangle}></div>
           Сортировка по:
@@ -24,17 +17,11 @@ export default function Main() {
 
       <section className={styles.items}>
         <h1>Все пиццы</h1>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {items.map((item) =>
+          <Card
+            key={"Main" + item.sku}
+            {...item}
+          />)}
       </section>
     </>
   )

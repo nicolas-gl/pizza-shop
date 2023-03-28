@@ -6,7 +6,7 @@ export default function Header() {
     <header>
 
       <div className={styles.headerLeft}>
-        <img width={38} height={38} src="img/icons/logo.svg" alt='logo' />
+        <img width={38} height={38} src="assets/img/icons/logo.svg" alt='logo' />
         <div>
           <h3>Best PIZZA shop</h3>
           <p>Cамая вкусная пицца во вселенной</p>

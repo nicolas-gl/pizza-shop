@@ -23,7 +23,7 @@ function App() {
   return (
     <div className={styles.wrapper}>
       <Header />
-      <Main items={items} />
+      <Main pizzas={items} />
     </div>
   );
 }

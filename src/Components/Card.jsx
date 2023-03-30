@@ -13,20 +13,20 @@ export default function Card({ title, price, imgUrl, imgAlt }) {
 
       <div className={styles.itemParams}>
         <div className={styles.param}>
-          <button>тонкое</button>
-          <button>традиционное</button>
+          <button>thin</button>
+          <button>usual</button>
         </div>
         <div className={styles.param}>
-          <button>26 см.</button>
-          <button>30 см.</button>
-          <button>40 см.</button>
+          <button>26 cm</button>
+          <button>30 cm</button>
+          <button>40 cm</button>
         </div>
       </div>
 
       <footer>
         <p>от {price} ₽</p>
         <button className={styles.add} onClick={() => { setCount(prev => ++prev) }}>
-          Добавить {count}
+          Add {count}
         </button>
       </footer>
     </article>

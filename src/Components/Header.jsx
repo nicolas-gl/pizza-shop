@@ -9,7 +9,7 @@ export default function Header() {
         <img width={38} height={38} src="assets/img/icons/logo.svg" alt='logo' />
         <div>
           <h3>Best PIZZA shop</h3>
-          <p>Cамая вкусная пицца во вселенной</p>
+          <p>The most tasty pizza in the Universe</p>
         </div>
       </div>
 

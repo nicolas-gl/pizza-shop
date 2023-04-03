@@ -7,9 +7,9 @@ export default function Categories({ activeCategory, makeActive }) {
 
   return (
     <div className={styles.filter}>
-      {categories.map((item) =>
-        <button onClick={() => makeActive(item)} className={activeCategory === item ? styles.active : ''} key={item}>
-          {item}
+      {categories.map((category) =>
+        <button onClick={() => makeActive(category)} className={activeCategory === category ? styles.active : ''} key={category}>
+          {category}
         </button >
       )}
     </div>

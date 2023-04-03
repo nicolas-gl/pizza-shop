@@ -26,16 +26,20 @@ article {
   width: 100%;
 
   button {
-    flex: auto;
+    // flex: auto;
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.015em;
     width: 100%;
     border: none;
     height: 32px;
-    background-color: #FFF;
+    background-color: #F3F3F3;
     border-radius: 5px;
     cursor: pointer;
+
+    &.active {
+      background-color: #FFF;
+    }
   }
 }
 

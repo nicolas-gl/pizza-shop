@@ -7,15 +7,13 @@ export default function Main({ pizzas }) {
 
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const makeActive = (index) => {
-    setActiveCategory(index === activeCategory ? 'All' : index);
+  const makeActive = (category) => {
+    setActiveCategory(category === activeCategory ? 'All' : category);
   }
 
   // const showTemp = (item) => {
   //   console.log(item.toLowerCase());
   // };
-
-  console.log('rendered')
 
 
   return (

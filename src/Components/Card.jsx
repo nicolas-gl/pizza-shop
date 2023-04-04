@@ -16,8 +16,8 @@ export default function Card({ title, price, imgUrl, imgAlt, sizes }) {
 
 
       {/* change div to ul */}
-      <div className={styles.itemParams}>
-        <div className={styles.param}>
+      <ul className={styles.itemParams}>
+        <li className={styles.param}>
           {doughs.map((dough) => (
             <button
               key={dough}
@@ -28,8 +28,8 @@ export default function Card({ title, price, imgUrl, imgAlt, sizes }) {
             </button>
           ))
           }
-        </div>
-        <div className={styles.param}>
+        </li>
+        <li className={styles.param}>
           {sizes.map((size) => (
             <button
               key={size}
@@ -40,8 +40,8 @@ export default function Card({ title, price, imgUrl, imgAlt, sizes }) {
             </button>
           ))
           }
-        </div>
-      </div>
+        </li>
+      </ul>
 
       <footer>
         <p>от {price} ₽</p>

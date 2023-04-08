@@ -2,9 +2,11 @@ import { useState } from 'react'
 import styles from './Card.module.scss'
 
 
-export default function Card({ title, price, imgUrl, imgAlt, sizes }) {
+export default function Card({ title, imgUrl, imgAlt, size_price }) {
 
-  const doughs = ["Thin", "Usual"]
+  const sizes = Object.keys(size_price);
+  const doughs = ["Thin", "Usual"];
+
   const [activeDough, setActiveDough] = useState('Thin');
   const [activeSize, setActiveSize] = useState(sizes[Math.ceil((sizes.length + 1) / 2) - 1]);
   const [count, setCount] = useState(0);
@@ -14,8 +16,6 @@ export default function Card({ title, price, imgUrl, imgAlt, sizes }) {
       <img width={260} height={260} src={imgUrl} alt={imgAlt} />
       <h2>{title}</h2>
 
-
-      {/* change div to ul */}
       <ul className={styles.itemParams}>
         <li className={styles.param}>
           {doughs.map((dough) => (
@@ -44,13 +44,11 @@ export default function Card({ title, price, imgUrl, imgAlt, sizes }) {
       </ul>
 
       <footer>
-        <p>от {price} ₽</p>
+        <p>{size_price[activeSize]} ₽</p>
         <button className={styles.add} onClick={() => { setCount(prev => ++prev) }}>
           Add {count}
         </button>
       </footer>
     </article>
-
-
   )
 }

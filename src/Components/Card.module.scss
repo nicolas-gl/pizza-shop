@@ -26,7 +26,6 @@ article {
   width: 100%;
 
   button {
-    // flex: auto;
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.015em;
@@ -52,6 +51,7 @@ footer {
   justify-content: space-between;
 
   p {
+    margin-left: 10px;
     font-size: 22px;
     font-weight: 700;
   }

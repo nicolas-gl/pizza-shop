@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import styles from './Sort.module.scss'
 
-export default function Sort({ sortBy, setSortBy }) {
+export default function Sort({ sortBy, setSortBy, params }) {
 
-  const params = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
+  // const params = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
 
   const [opened, setOpened] = useState(false);
 

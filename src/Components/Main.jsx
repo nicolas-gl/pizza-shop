@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 export default function Main({ pizzas }) {
 
-  let sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
+  const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
 
   const [activeCategory, setActiveCategory] = useState('All');
   const [sortBy, setSortBy] = useState(sortParams[0]);
@@ -44,7 +44,7 @@ export default function Main({ pizzas }) {
         <Sort
           sortBy={sortBy}
           setSortBy={setSortBy}
-          params={sortParams}
+          list={sortParams}
         />
       </div>
 

@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import styles from './Sort.module.scss'
 
-export default function Sort({ sortBy, setSortBy, params }) {
-
-  // const params = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
+export default function Sort({ sortBy, setSortBy, list }) {
 
   const [opened, setOpened] = useState(false);
 
@@ -22,7 +20,7 @@ export default function Sort({ sortBy, setSortBy, params }) {
       {opened
         ? <div className={styles.popup}>
           <ul>
-            {params.map(param =>
+            {list.map(param =>
               <li
                 key={param}
                 onClick={() => onParamClicked(param)}

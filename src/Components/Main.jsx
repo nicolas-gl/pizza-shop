@@ -4,7 +4,8 @@ import Categories from './Categories';
 import Sort from './Sort';
 import { useState } from 'react';
 
-export default function Main({ pizzas }) {
+
+export default function Main({ pizzas, itemsLoading }) {
 
   const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
 
@@ -35,7 +36,7 @@ export default function Main({ pizzas }) {
   };
 
   return (
-    <>
+    <div>
       <div className={styles.mainHeader}>
         <Categories
           activeCategory={activeCategory}
@@ -48,16 +49,26 @@ export default function Main({ pizzas }) {
         />
       </div>
 
-
       <section className={styles.items}>
         <h1>{`${activeCategory} pizzas`}</h1>
-        {pizzas.sort((a, b) => sorting(a, b)).filter(item => activeCategory === 'All' || item.properties.includes(activeCategory.toLowerCase())).map((item) =>
-          <Card
-            key={"Main" + item.sku}
-            {...item}
-          />
-        )}
+
+
+        {itemsLoading
+          ? [...Array(12)].map((item, index) =>
+            <Card
+              key={index}
+              itemsLoading={itemsLoading}
+            />)
+          : pizzas.sort((a, b) => sorting(a, b)).filter(item => activeCategory === 'All' || item.properties.includes(activeCategory.toLowerCase())).map((item) =>
+            <Card
+              key={item.sku}
+              itemsLoading={itemsLoading}
+              {...item}
+            />
+          )
+        }
+
       </section>
-    </>
+    </div>
   )
 }

@@ -15,42 +15,22 @@ export default function Card({ item, title, imgUrl, imgAlt, size_price = [], ite
 
   return (
     <article>
-
-      {/* <ContentLoader
-        speed={2}
-        width={400}
-        height={160}
-        viewBox="0 0 400 160"
-        backgroundColor="#f3f3f3"
-        foregroundColor="#ecebeb"
-      // {...props}
-      >
-        <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
-        <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
-        <rect x="0" y="56" rx="3" ry="3" width="410" height="6" />
-        <rect x="0" y="72" rx="3" ry="3" width="380" height="6" />
-        <rect x="0" y="88" rx="3" ry="3" width="178" height="6" />
-        <circle cx="20" cy="20" r="20" />
-      </ContentLoader> */}
-
-      {itemsLoading ? <ContentLoader
-        speed={2}
-        width={400}
-        height={160}
-        viewBox="0 0 400 160"
-        backgroundColor="#f3f3f3"
-        foregroundColor="#ecebeb"
-      >
-        <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
-        <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />
-        <rect x="0" y="56" rx="3" ry="3" width="410" height="6" />
-        <rect x="0" y="72" rx="3" ry="3" width="380" height="6" />
-        <rect x="0" y="88" rx="3" ry="3" width="178" height="6" />
-        <circle cx="20" cy="20" r="20" />
-      </ContentLoader>
-        :
-
-        <>
+      {itemsLoading
+        ? <ContentLoader
+          speed={2}
+          width={292}
+          height={485}
+          viewBox="0 0 292 485"
+          backgroundColor="#f3f3f3"
+          foregroundColor="#ecebeb"
+        >
+          <circle cx="146" cy="130" r="130" />
+          <rect x="46" y="280" rx="0" ry="0" width="200" height="28" />
+          <rect x="0" y="325" rx="10" ry="10" width="292" height="85" />
+          <rect x="10" y="434" rx="0" ry="0" width="65" height="25" />
+          <rect x="160" y="426" rx="22" ry="22" width="132" height="40" />
+        </ContentLoader>
+        : <>
           <img width={260} height={260} src={imgUrl} alt={imgAlt} />
           <h2>{title}</h2>
 

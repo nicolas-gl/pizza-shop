@@ -1,16 +1,49 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect, createContext } from 'react';
+import { createBrowserRouter, RouterProvider, Link, Outlet } from "react-router-dom";
 
+import axios from 'axios';
 import styles from './App.module.scss';
 import Header from './Components/Header';
-import Main from './Components/Main';
+import Home from './Pages/Home';
+import Cart from './Pages/Cart';
+
+// import NotFound from './Pages/NotFound';
 
 
-function App() {
+
+export const AppContext = createContext({});
+
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Wrapper />,
+    errorElement:
+      <div>ошибка 404. Страница в разработке
+        <Link to={`/`}><button>Go to main page</button></Link>
+      </div>,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/sneakers-shop/orders",
+        element: <Home />,
+      },
+    ],
+  },
+]);
+
+
+export default function App() {
 
   const [items, setItems] = useState([]);
   const [itemsLoading, setItemsLoading] = useState(true);
-
 
   useEffect(() => {
     try {
@@ -26,14 +59,68 @@ function App() {
 
 
   return (
+    <AppContext.Provider
+      value={{
+        pizzas: items,
+        itemsLoading
+      }}
+    >
+      {/* <div className={styles.wrapper}>
+        <Header /> */}
+      {/* <Main
+          pizzas={items}
+          itemsLoading={itemsLoading}
+        /> */}
+      {/* <Home
+          pizzas={items}
+          itemsLoading={itemsLoading}
+        /> */}
+      {/* <NotFound /> */}
+
+      <RouterProvider
+        router={router}
+      />
+
+
+      {/* <Routes>
+        <Route path='/' element={<Home
+          pizzas={items}
+          itemsLoading={itemsLoading} />
+        }
+        />
+      </Routes> */}
+
+      {/* </div> */}
+    </AppContext.Provider>
+  );
+};
+
+function Wrapper() {
+  return (
     <div className={styles.wrapper}>
       <Header />
-      <Main
-        pizzas={items}
-        itemsLoading={itemsLoading}
-      />
-    </div>
-  );
-}
+      {/* <Main
+          pizzas={items}
+          itemsLoading={itemsLoading}
+        /> */}
+      {/* <Home
+          pizzas={items}
+          itemsLoading={itemsLoading}
+        /> */}
+      {/* <NotFound /> */}
 
-export default App;
+      <Outlet
+      />
+
+
+      {/* <Routes>
+        <Route path='/' element={<Home
+          pizzas={items}
+          itemsLoading={itemsLoading} />
+        }
+        />
+      </Routes> */}
+
+    </div>
+  )
+}

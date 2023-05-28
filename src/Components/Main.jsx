@@ -2,10 +2,15 @@ import styles from './Main.module.scss'
 import Card from './Card';
 import Categories from './Categories';
 import Sort from './Sort';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AppContext } from '../App';
 
 
-export default function Main({ pizzas, itemsLoading }) {
+
+export default function Main() {
+
+  const { pizzas, itemsLoading } = useContext(AppContext);
+  console.log(pizzas)
 
   const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
 
@@ -48,13 +53,10 @@ export default function Main({ pizzas, itemsLoading }) {
           list={sortParams}
         />
       </div>
-
       <section className={styles.items}>
         <h1>{`${activeCategory} pizzas`}</h1>
-
-
         {itemsLoading
-          ? [...Array(12)].map((item, index) =>
+          ? [...Array(12)].map((_, index) =>
             <Card
               key={index}
               itemsLoading={itemsLoading}
@@ -67,8 +69,8 @@ export default function Main({ pizzas, itemsLoading }) {
             />
           )
         }
-
       </section>
+
     </div>
   )
 }

@@ -9,11 +9,9 @@ import { AppContext } from '../App';
 
 export default function Main() {
 
-  const { pizzas, itemsLoading } = useContext(AppContext);
-  console.log(pizzas)
-
   const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
 
+  const { pizzas, itemsLoading } = useContext(AppContext);
   const [activeCategory, setActiveCategory] = useState('All');
   const [sortBy, setSortBy] = useState(sortParams[0]);
 
@@ -42,6 +40,7 @@ export default function Main() {
 
   return (
     <div>
+
       <div className={styles.mainHeader}>
         <Categories
           activeCategory={activeCategory}
@@ -53,18 +52,19 @@ export default function Main() {
           list={sortParams}
         />
       </div>
+
       <section className={styles.items}>
         <h1>{`${activeCategory} pizzas`}</h1>
         {itemsLoading
           ? [...Array(12)].map((_, index) =>
             <Card
               key={index}
-              itemsLoading={itemsLoading}
+              itemsLoading={true}
             />)
           : pizzas.sort((a, b) => sorting(a, b)).filter(item => activeCategory === 'All' || item.properties.includes(activeCategory.toLowerCase())).map((item) =>
             <Card
               key={item.sku}
-              itemsLoading={itemsLoading}
+              itemsLoading={false}
               {...item}
             />
           )

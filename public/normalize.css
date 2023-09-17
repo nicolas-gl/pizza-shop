@@ -386,3 +386,10 @@ ul {
   padding-inline-start: 0px;
   list-style-type: none;
 }
+
+button {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: inherit;
+}

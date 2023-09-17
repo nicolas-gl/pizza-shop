@@ -57,52 +57,65 @@ footer {
   }
 }
 
-.add {
-  width: 132px;
-  height: 40px;
-  border: 1px solid #FE5F1E;
-  border-radius: 30px;
-  background-color: #FFF;
-  color: #FE5F1E;
-  cursor: pointer;
-  font-weight: 700;
 
-  &:hover {
-    background-color: #FE5F1E;
-    color: #FFF;
+
+.addBlock {
+  position: relative;
+
+  .add {
+    width: 132px;
+    height: 40px;
+    border: 1px solid #FE5F1E;
+    border-radius: 30px;
+    background-color: #FFF;
+    color: #FE5F1E;
+    cursor: pointer;
+    font-weight: 700;
+
+    &:hover {
+      background-color: #FE5F1E;
+      color: #FFF;
+    }
+
+    &.clone {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+
+@keyframes moveToCart {
+  50% {
+    position: fixed;
+    right: 100px;
+    top: 450px;
+  }
+
+  99% {
+    position: fixed;
+    right: 100px;
+    top: 150px;
+  }
+
+  to {
+    position: fixed;
+    right: 100px;
+    top: 150px;
+    display: none;
   }
 }
 
 
-// .plus {
-//   background: #FE5F1E;
-//   height: 12px;
-//   width: 2px;
-//   border-radius: 1px;
-//   position: relative;
-//   left: 5px;
 
-//   &:after {
-//     content: "";
-//     height: 2px;
-//     width: 12px;
-//     border-radius: 1px;
-//     background: #FE5F1E;
-//     position: absolute;
-//     left: -5px;
-//     top: 5px;
-//   }
-// }
+.thing {
 
-// &:hover {
-//   background-color: #FE5F1E;
-//   color: #FFF;
-// 
-// .plus {
-//   background: #FFF;
-// 
-//   &:after {
-//     background: #FFF;
-//   }
-// }
-// }
+  margin: 100px;
+
+  &:hover {
+    background-color: #FE5F1E;
+    color: #FFF;
+    transition: transform 300ms;
+    transform: translateX(200px);
+  }
+}

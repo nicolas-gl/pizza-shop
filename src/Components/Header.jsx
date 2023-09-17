@@ -1,10 +1,17 @@
-import styles from './Header.module.scss'
+import styles from './Header.module.scss';
 import { Link } from "react-router-dom";
+import { useContext } from 'react';
+import { AppContext } from '../App';
 
 
 export default function Header() {
-  return (
 
+  const { cartItems } = useContext(AppContext);
+
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)
+
+  return (
     <header>
       <Link to="/" >
         <div className={styles.headerLeft}>
@@ -17,10 +24,10 @@ export default function Header() {
       </Link>
 
       <Link to="/cart" >
-        <div className={styles.headerRight}>
-          <p>520 ₽</p>
-          <div className={styles.pipe}></div>
-          <p>3</p>
+        <div id={"cart"} className={styles.headerRight}>
+          <p>{totalPrice} ₽</p>
+          <div className={styles.pipeLine}></div>
+          <p>{totalCount}</p>
         </div>
       </Link>
     </header>

@@ -14,7 +14,7 @@ export default function Header() {
   return (
     <header>
       <Link to="/" >
-        <div className={styles.headerLeft}>
+        <div className={styles.headerBrand}>
           <img width={38} height={38} src="assets/img/icons/logo.svg" alt='logo' />
           <div>
             <h3>Best PIZZA shop</h3>
@@ -24,7 +24,7 @@ export default function Header() {
       </Link>
 
       <Link to="/cart" >
-        <div id={"cart"} className={styles.headerRight}>
+        <div id={"cart"} className={styles.headerCart}>
           <p>{totalPrice} ₽</p>
           <div className={styles.pipeLine}></div>
           <p>{totalCount}</p>

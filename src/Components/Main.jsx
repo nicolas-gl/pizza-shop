@@ -39,8 +39,7 @@ export default function Main() {
   };
 
   return (
-    <div>
-
+    <>
       <div className={styles.mainHeader}>
         <Categories
           activeCategory={activeCategory}
@@ -53,8 +52,8 @@ export default function Main() {
         />
       </div>
 
-      <section className={styles.items}>
-        <h1>{`${activeCategory} pizzas`}</h1>
+      <h1>{`${activeCategory} pizzas`}</h1>
+      <section className={styles.content}>
         {itemsLoading
           ? [...Array(12)].map((_, index) =>
             <Card
@@ -70,7 +69,6 @@ export default function Main() {
           )
         }
       </section>
-
-    </div>
+    </>
   )
 }

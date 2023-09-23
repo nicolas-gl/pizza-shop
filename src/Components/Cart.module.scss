@@ -117,7 +117,7 @@
   }
 
   .price {
-    min-width: 50px;
+    min-width: 70px;
     display: flex;
     justify-content: space-around;
   }
@@ -132,7 +132,6 @@
   border: solid 2px #D7D7D7;
   cursor: pointer;
 
-
   .x {
     left: 13px;
     background: #D7D7D7;
@@ -141,16 +140,15 @@
     width: 2px;
     rotate: 45deg;
 
-  }
-
-  .x:after {
-    position: absolute;
-    background: #D7D7D7;
-    content: "";
-    height: 2px;
-    left: -6px;
-    top: 6px;
-    width: 14px;
+    &:after {
+      position: absolute;
+      background: #D7D7D7;
+      content: "";
+      height: 2px;
+      left: -6px;
+      top: 6px;
+      width: 14px;
+    }
   }
 
   &:hover {

@@ -1,22 +1,39 @@
 article {
-  height: 485px;
-  width: 292px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-self: center;
+
+  @media (max-width: 700px) {
+    h2 {
+      font-size: 16px;
+      margin: 6px;
+    }
+  }
+
+  @media (max-width: 350px) {
+    img {
+      height: 155px;
+      width: 155px;
+    }
+  }
 }
 
 
 .itemParams {
-  padding: 0 6px;
+  padding: 6px;
   border-radius: 10px;
   background-color: #F3F3F3;
-  height: 85px;
   width: 280px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 7px;
+
+  @media (max-width: 350px) {
+    width: 210px;
+    padding: 6px;
+  }
 }
 
 .param {
@@ -39,6 +56,13 @@ article {
     &.active {
       background-color: #FFF;
     }
+
+    @media (max-width: 700px) {
+      height: 21px;
+      font-size: 10px;
+      border-radius: 3px;
+
+    }
   }
 }
 
@@ -46,7 +70,6 @@ article {
 footer {
   width: 100%;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
 
@@ -54,6 +77,10 @@ footer {
     margin-left: 10px;
     font-size: 22px;
     font-weight: 700;
+
+    @media (max-width: 700px) {
+      font-size: 14px;
+    }
   }
 }
 
@@ -61,6 +88,7 @@ footer {
 
 .addBlock {
   position: relative;
+  margin-right: 5px;
 
   .add {
     width: 132px;
@@ -72,6 +100,12 @@ footer {
     cursor: pointer;
     font-weight: 700;
 
+    @media (max-width: 700px) {
+      width: 100px;
+      height: 30px;
+      font-size: 66%;
+    }
+
     &:hover {
       background-color: #FE5F1E;
       color: #FFF;
@@ -82,40 +116,5 @@ footer {
       top: 0;
       right: 0;
     }
-  }
-}
-
-@keyframes moveToCart {
-  50% {
-    position: fixed;
-    right: 100px;
-    top: 450px;
-  }
-
-  99% {
-    position: fixed;
-    right: 100px;
-    top: 150px;
-  }
-
-  to {
-    position: fixed;
-    right: 100px;
-    top: 150px;
-    display: none;
-  }
-}
-
-
-
-.thing {
-
-  margin: 100px;
-
-  &:hover {
-    background-color: #FE5F1E;
-    color: #FFF;
-    transition: transform 300ms;
-    transform: translateX(200px);
   }
 }

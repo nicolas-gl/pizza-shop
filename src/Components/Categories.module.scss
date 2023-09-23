@@ -1,17 +1,32 @@
-.filter button {
-  cursor: pointer;
-  padding: 8px 25px;
-  margin-right: 9px;
-  margin-bottom: 6px;
-  height: 46px;
-  border-radius: 30px;
-  border: none;
-  background-color: #F9F9F9;
-  font-weight: 700;
-  letter-spacing: 0.015em;
+.filter {
+  @media (max-width: 700px) {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-  &.active {
-    background-color: black;
-    color: #F9F9F9;
+  button {
+    cursor: pointer;
+    padding: 8px 25px;
+    margin-right: 9px;
+    margin-bottom: 6px;
+    height: 46px;
+    border-radius: 30px;
+    border: none;
+    background-color: #F9F9F9;
+    font-weight: 700;
+    letter-spacing: 0.015em;
+
+    @media (max-width: 700px) {
+      padding: 0px 12px;
+      margin: 0 3px;
+      height: 35px;
+      font-size: 66%;
+    }
+
+    &.active {
+      background-color: black;
+      color: #F9F9F9;
+    }
+
   }
 }

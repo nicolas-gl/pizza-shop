@@ -106,9 +106,11 @@ footer {
       font-size: 66%;
     }
 
-    &:hover {
-      background-color: #FE5F1E;
-      color: #FFF;
+    @media (min-width: 1071px) {
+      &:hover {
+        background-color: #FE5F1E;
+        color: #FFF;
+      }
     }
 
     &.clone {

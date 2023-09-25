@@ -66,6 +66,7 @@ Header {
     color: #FFFFFF;
     font-weight: 800;
     font-size: 16px;
+    white-space: nowrap;
 
     @media (max-width: 700px) {
       font-weight: 700;

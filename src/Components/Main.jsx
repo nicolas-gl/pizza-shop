@@ -2,9 +2,9 @@ import styles from './Main.module.scss'
 import Card from './Card';
 import Categories from './Categories';
 import Sort from './Sort';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { AppContext } from '../App';
-
+import { useSelector } from "react-redux";
 
 
 export default function Main() {
@@ -12,12 +12,8 @@ export default function Main() {
   const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
 
   const { pizzas, itemsLoading } = useContext(AppContext);
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [sortBy, setSortBy] = useState(sortParams[0]);
-
-  const makeActive = (category) => {
-    setActiveCategory(category === activeCategory ? 'All' : category);
-  };
+  const activeCategory = useSelector(state => state.filter.activeCategory);
+  const sortBy = useSelector(state => state.filter.sortBy);
 
   const sorting = (item1, item2) => {
     if (sortBy === "alphabetically") {
@@ -41,13 +37,8 @@ export default function Main() {
   return (
     <>
       <div className={styles.mainHeader}>
-        <Categories
-          activeCategory={activeCategory}
-          makeActive={makeActive}
-        />
+        <Categories />
         <Sort
-          sortBy={sortBy}
-          setSortBy={setSortBy}
           list={sortParams}
         />
       </div>

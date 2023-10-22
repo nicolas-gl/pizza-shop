@@ -6,10 +6,7 @@ import Header from './Components/Header';
 import HomePage from './Pages/HomePage';
 import CartPage from './Pages/CartPage';
 
-
 export const AppContext = createContext({});
-
-
 
 const router = createBrowserRouter([
   {
@@ -31,8 +28,6 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
-
 
 
 export function App() {
@@ -100,7 +95,6 @@ export function App() {
       );
   };
 
-
   return (
     <AppContext.Provider
       value={{
@@ -119,11 +113,9 @@ export function App() {
   );
 };
 
-
 // КАК ВАРИАНТ СДЕЛАТЬ ЗАПРОСЫ НЕ В App (переименовать в root), А В Content (переименовать в )
 
 function Content() {
-
   return (
     <div className={styles.wrapper}>
       <Header />
@@ -132,5 +124,4 @@ function Content() {
   )
 }
 
-
-export default <RouterProvider router={router} />
+// export default <RouterProvider router={router} />

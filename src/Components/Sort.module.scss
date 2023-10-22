@@ -51,6 +51,10 @@
   ul {
     padding: 13px 0;
     min-width: 150px;
+
+    @media (max-width: 700px) {
+      min-width: 100px;
+    }
   }
 
   li {
@@ -58,6 +62,10 @@
     text-align: right;
     padding: 10px 10px 10px 20px;
     cursor: pointer;
+
+    @media (max-width: 700px) {
+      padding: 6px 6px 6px 14px;
+    }
 
     &:hover {
       background-color: rgba(254, 95, 30, 0.2);

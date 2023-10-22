@@ -6,6 +6,7 @@ import Header from './Components/Header';
 import HomePage from './Pages/HomePage';
 import CartPage from './Pages/CartPage';
 
+
 export const AppContext = createContext({});
 
 const router = createBrowserRouter([
@@ -113,7 +114,6 @@ export function App() {
   );
 };
 
-// КАК ВАРИАНТ СДЕЛАТЬ ЗАПРОСЫ НЕ В App (переименовать в root), А В Content (переименовать в )
 
 function Content() {
   return (
@@ -123,5 +123,3 @@ function Content() {
     </div>
   )
 }
-
-// export default <RouterProvider router={router} />

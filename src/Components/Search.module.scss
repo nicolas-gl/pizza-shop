@@ -1,0 +1,40 @@
+.searchBlock {
+  height: 50px;
+  width: 20px;
+  min-width: 300px;
+  border: 1px solid #f2f2f2;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 1070px) {
+    min-width: 220px;
+  }
+
+  @media (max-width: 700px) {
+    height: 32px;
+    min-width: 170px;
+    font-size: 80%;
+  }
+
+  img {
+    margin-left: 14px;
+
+    @media (max-width: 700px) {
+      margin-left: 8px;
+    }
+  }
+
+  input {
+    padding: 0;
+    margin: 0 14px;
+    width: 100%;
+    line-height: 17px;
+    border: none;
+    outline: none;
+
+    @media (max-width: 700px) {
+      margin: 0 8px;
+    }
+  }
+}

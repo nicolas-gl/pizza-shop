@@ -1,6 +1,7 @@
 Header {
   padding: 50px 40px 40px 77px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #F6F6F6;
 
@@ -9,11 +10,19 @@ Header {
     padding: 15px 7px;
     align-items: center;
   }
+
+  @media (max-width: 500px) {
+    height: 130px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+  }
 }
 
 .headerBrand {
   display: flex;
   align-items: center;
+  margin-right: 10px;
 
   img {
     margin-right: 17px;
@@ -45,19 +54,19 @@ Header {
 }
 
 .headerCart {
-  background-color: #FE5F1E;
-  border-radius: 30px;
   height: 50px;
-  display: flex;
   padding: 0 23px;
+  margin-left: 10px;
+  border-radius: 30px;
+  background-color: #FE5F1E;
+  display: flex;
   align-items: center;
 
   @media (max-width: 700px) {
     border-radius: 20px;
-    height: 33px;
+    height: 32px;
     display: flex;
     padding: 0 10px;
-    margin-left: 10px;
     align-items: center;
   }
 

@@ -12,8 +12,7 @@ export default function Main() {
   const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
 
   const { pizzas, itemsLoading } = useContext(AppContext);
-  const activeCategory = useSelector(state => state.filter.activeCategory);
-  const sortBy = useSelector(state => state.filter.sortBy);
+  const { sortBy, activeCategory } = useSelector(state => state.filter);
 
   const sorting = (item1, item2) => {
     if (sortBy === "alphabetically") {

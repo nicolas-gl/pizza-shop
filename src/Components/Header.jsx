@@ -2,6 +2,7 @@ import styles from './Header.module.scss';
 import { Link } from "react-router-dom";
 import { useContext } from 'react';
 import { AppContext } from '../App';
+import Search from './Search'
 
 
 export default function Header() {
@@ -22,6 +23,8 @@ export default function Header() {
           </div>
         </div>
       </Link>
+
+      <Search />
 
       <Link to="/cart" >
         <div id={"cart"} className={styles.headerCart}>

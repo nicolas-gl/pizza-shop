@@ -4,7 +4,6 @@ import { useState, useRef } from 'react';
 
 export default function Search() {
 
-
   const [searchValue, setSearchValue] = useState('');
   const inputRef = useRef();
 

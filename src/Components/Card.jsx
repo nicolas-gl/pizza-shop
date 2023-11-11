@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useRef } from 'react'
 import { AppContext } from '../App';
 import Skeleton from './Skeleton'
 import styles from './Card.module.scss'
@@ -7,18 +7,20 @@ import styles from './Card.module.scss'
 export default function Card({ sku, title, imgUrl, imgAlt, size_price = [], itemsLoading }) {
 
   const { addToCart } = useContext(AppContext);
+  const addButtonRef = useRef();
+  const addDivRef = useRef();
 
   const cloneAndAnimate = () => {
 
-    const node = document.getElementById(`${sku}-add`);
+    const node = addButtonRef.current;
     const clone = node.cloneNode(true);
-    clone.innerHTML = "your pizza"
-    clone.removeAttribute("id");
-    clone.classList.toggle(`${styles.clone}`)
-    document.getElementById(`${sku}-div`).appendChild(clone);
+    clone.innerHTML = "your pizza";
+    clone.classList.toggle(`${styles.clone}`);
+    addDivRef.current.appendChild(clone);
 
-    const headerCart = document.getElementById("cart");
-    const startRect = document.getElementById(`${sku}-div`).getBoundingClientRect();
+    const headerCart = document.getElementById("cartButton");
+
+    const startRect = addDivRef.current.getBoundingClientRect();
     const finihsRect = headerCart.getBoundingClientRect();
     const finihsHeight = headerCart.offsetHeight;
     const finihsWidth = headerCart.offsetWidth;
@@ -48,7 +50,6 @@ export default function Card({ sku, title, imgUrl, imgAlt, size_price = [], item
         fill: "forwards",
       },
     );
-
   }
 
   const sizes = Object.keys(size_price);
@@ -99,8 +100,8 @@ export default function Card({ sku, title, imgUrl, imgAlt, size_price = [], item
 
           <footer>
             <p>{size_price[activeSize]} ₽</p>
-            <div id={`${sku}-div`} className={styles.addBlock}>
-              <button className={styles.add} id={`${sku}-add`} onClick={onAddClicked}>
+            <div ref={addDivRef} className={styles.addBlock}>
+              <button ref={addButtonRef} className={styles.add} onClick={onAddClicked}>
                 Add
               </button>
             </div>

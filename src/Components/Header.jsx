@@ -27,7 +27,7 @@ export default function Header() {
       <Search />
 
       <Link to="/cart" >
-        <div id={"cart"} className={styles.headerCart}>
+        <div id="cartButton" className={styles.headerCart}>
           <p>{totalPrice} ₽</p>
           <div className={styles.pipeLine}></div>
           <p>{totalCount}</p>

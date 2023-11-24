@@ -2,9 +2,11 @@ import styles from './Main.module.scss'
 import Card from './Card';
 import Categories from './Categories';
 import Sort from './Sort';
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { AppContext } from '../App';
 import { useSelector } from "react-redux";
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Main() {
@@ -13,6 +15,19 @@ export default function Main() {
 
   const { pizzas, itemsLoading } = useContext(AppContext);
   const { sortBy, activeCategory } = useSelector(state => state.filter);
+
+  const isMounted = useRef(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortBy, activeCategory
+      });
+      navigate(`?${queryString}`);
+    };
+    isMounted.current = true;
+  }, [navigate, sortBy, activeCategory])
 
   const sorting = (item1, item2) => {
     if (sortBy === "alphabetically") {
@@ -32,6 +47,7 @@ export default function Main() {
     console.log(`!!!Have no algorithm for ${sortBy} sotring`);
     return item1.title.localeCompare(item2.title);
   };
+
 
   return (
     <>

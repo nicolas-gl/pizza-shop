@@ -11,8 +11,9 @@ export default function Categories() {
   const dispatch = useDispatch();
 
   const makeActive = (category) => {
-    dispatch(setActiveCategory(category))
+    dispatch(setActiveCategory(category));
   };
+
 
   return (
     <div className={styles.filter}>

@@ -50,7 +50,7 @@ export default function Card({ sku, title, imgUrl, imgAlt, size_price = [], item
         fill: "forwards",
       },
     );
-  }
+  };
 
   const sizes = Object.keys(size_price);
   const doughs = ["Thin", "Usual"];

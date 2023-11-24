@@ -13,7 +13,8 @@ export default function Sort({ list }) {
   const onParamClicked = (p) => {
     dispatch(setSortBy(p));
     setOpened(false);
-  }
+  };
+
 
   return (
     <div className={styles.sorter}>

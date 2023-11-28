@@ -1,7 +1,7 @@
-import { useState, useRef, useContext, useMemo } from 'react';
+import { useEffect, useState, useRef, useContext, useMemo } from 'react';
 import { AppContext } from '../App';
 import debounce from 'lodash.debounce';
-import styles from './Search.module.scss'
+import styles from './Search.module.scss';
 
 
 export default function Search() {
@@ -9,6 +9,10 @@ export default function Search() {
   const { searchValue, setSearchValue } = useContext(AppContext);
   const [nowValue, setNowValue] = useState('');
   const inputRef = useRef();
+
+  useEffect(() => {
+    setSearchValue('');
+  }, [setSearchValue]);
 
   const getSearchItems = useMemo(() => debounce((value) => setSearchValue(value), 500), [setSearchValue]);
 
@@ -31,6 +35,7 @@ export default function Search() {
         : <img src="assets/img/icons/search.svg" alt="search" />
       }
       <input
+        autoComplete="off"
         ref={inputRef}
         id="searchInput"
         onChange={onChangeSearchInput}

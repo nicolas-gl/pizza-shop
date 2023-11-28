@@ -1,8 +1,8 @@
 import styles from './Header.module.scss';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useContext } from 'react';
 import { AppContext } from '../App';
-import Search from './Search'
+import Search from './Search';
 
 
 export default function Header() {
@@ -12,6 +12,7 @@ export default function Header() {
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
+  let location = useLocation();
 
   return (
     <header>
@@ -25,7 +26,9 @@ export default function Header() {
         </div>
       </Link>
 
-      <Search />
+      {
+        location.pathname[1] ? null : <Search />
+      }
 
       <Link to="/cart" >
         <div id="cartButton" className={styles.headerCart}>

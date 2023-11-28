@@ -1,18 +1,25 @@
+import { useState, useRef, useContext, useMemo } from 'react';
+import { AppContext } from '../App';
+import debounce from 'lodash.debounce';
 import styles from './Search.module.scss'
-import { useState, useRef } from 'react';
 
 
 export default function Search() {
 
-  const [searchValue, setSearchValue] = useState('');
+  const { searchValue, setSearchValue } = useContext(AppContext);
+  const [nowValue, setNowValue] = useState('');
   const inputRef = useRef();
 
+  const getSearchItems = useMemo(() => debounce((value) => setSearchValue(value), 500), [setSearchValue]);
+
   const onChangeSearchInput = (event) => {
-    setSearchValue(event.target.value);
+    setNowValue(event.target.value);
+    getSearchItems(event.target.value);
   };
 
   const onReset = () => {
     setSearchValue('');
+    setNowValue('');
     inputRef.current.focus();
   };
 
@@ -27,7 +34,7 @@ export default function Search() {
         ref={inputRef}
         id="searchInput"
         onChange={onChangeSearchInput}
-        value={searchValue}
+        value={nowValue}
         placeholder="Find your Best..." />
     </div>)
 }

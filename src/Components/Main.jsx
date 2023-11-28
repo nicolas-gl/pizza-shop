@@ -13,7 +13,7 @@ export default function Main() {
 
   const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
 
-  const { pizzas, itemsLoading } = useContext(AppContext);
+  const { searchValue, pizzas, itemsLoading } = useContext(AppContext);
   const { sortBy, activeCategory } = useSelector(state => state.filter);
 
   const isMounted = useRef(false);
@@ -66,7 +66,11 @@ export default function Main() {
               key={index}
               itemsLoading={true}
             />)
-          : pizzas.sort((a, b) => sorting(a, b)).filter(item => activeCategory === 'All' || item.properties.includes(activeCategory.toLowerCase())).map((item) =>
+          : pizzas.sort((a, b) => sorting(a, b)).filter(
+            item => item.title.toLowerCase().includes(searchValue.toLowerCase()) && (
+              activeCategory === 'All' || item.properties.includes(activeCategory.toLowerCase())
+            )
+          ).map((item) =>
             <Card
               key={item.sku}
               itemsLoading={false}

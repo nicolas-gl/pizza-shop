@@ -2,11 +2,12 @@ import styles from './Main.module.scss'
 import Card from './Card';
 import Categories from './Categories';
 import Sort from './Sort';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect } from 'react';
 import { AppContext } from '../App';
 import { useSelector } from "react-redux";
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
+import { initialState } from "../Redux/Slices/filterSlice";
 
 
 export default function Main() {
@@ -16,18 +17,21 @@ export default function Main() {
   const { searchValue, pizzas, itemsLoading } = useContext(AppContext);
   const { sortBy, activeCategory } = useSelector(state => state.filter);
 
-  const isMounted = useRef(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isMounted.current) {
+    if (window.location.search) {
+      const queryString = qs.stringify({
+        sortBy, activeCategory
+      });
+      navigate(`?${queryString}`);
+    } else if (initialState.activeCategory !== activeCategory || initialState.sortBy !== sortBy) {
       const queryString = qs.stringify({
         sortBy, activeCategory
       });
       navigate(`?${queryString}`);
     };
-    isMounted.current = true;
-  }, [navigate, sortBy, activeCategory])
+  }, [navigate, sortBy, activeCategory]);
 
   const sorting = (item1, item2) => {
     if (sortBy === "alphabetically") {
@@ -66,6 +70,7 @@ export default function Main() {
               key={index}
               itemsLoading={true}
             />)
+
           : pizzas.sort((a, b) => sorting(a, b)).filter(
             item => item.title.toLowerCase().includes(searchValue.toLowerCase()) && (
               activeCategory === 'All' || item.properties.includes(activeCategory.toLowerCase())

@@ -4,8 +4,14 @@ import { useContext } from 'react';
 import { AppContext } from '../App';
 import Search from './Search';
 
+import { reset } from "../Redux/Slices/filterSlice";
+import { useDispatch } from "react-redux";
+
+
 
 export default function Header() {
+
+  const dispatch = useDispatch();
 
   const { cartItems } = useContext(AppContext);
 
@@ -16,7 +22,9 @@ export default function Header() {
 
   return (
     <header>
-      <Link to="/" >
+      <Link to="/"
+        onClick={() => dispatch(reset())}
+      >
         <div className={styles.headerBrand}>
           <img width={38} height={38} src="assets/img/icons/logo.svg" alt='logo' />
           <div>

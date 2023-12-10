@@ -6,32 +6,36 @@ const URLparams = window.location.search.substring(1);
 
 const initialStateFromURL = {
   activeCategory: qs.parse(URLparams).activeCategory,
-  sortBy: qs.parse(URLparams).sortBy
+  sortBy: qs.parse(URLparams).sortBy,
+  searchValue: ""
 };
 
-export const initialState = {
+export const mainState = {
   activeCategory: "All",
-  sortBy: "popularity"
+  sortBy: "popularity",
+  searchValue: ""
 };
 
 
 const filterSlice = createSlice({
   name: "filter",
-  initialState: URLparams ? initialStateFromURL : initialState,
+  initialState: URLparams ? initialStateFromURL : mainState,
 
   reducers: {
     setActiveCategory(state, action) {
       state.activeCategory = action.payload;
-      console.log('cat changed')
     },
     setSortBy(state, action) {
-      state.sortBy = action.payload
+      state.sortBy = action.payload;
     },
-    reset: () => initialState
+    setSearchValue(state, action) {
+      state.searchValue = action.payload;
+    },
+    resetState: () => mainState
   }
 });
 
 
-export const { setActiveCategory, setSortBy, reset } = filterSlice.actions;
+export const { setActiveCategory, setSortBy, setSearchValue, resetState } = filterSlice.actions;
 
 export default filterSlice.reducer;

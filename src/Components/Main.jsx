@@ -2,20 +2,20 @@ import styles from './Main.module.scss'
 import Card from './Card';
 import Categories from './Categories';
 import Sort from './Sort';
-import { useContext, useEffect } from 'react';
 import { AppContext } from '../App';
+import { useContext, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import { initialState } from "../Redux/Slices/filterSlice";
+import { mainState } from "../Redux/Slices/filterSlice";
 
 
 export default function Main() {
 
   const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
 
-  const { searchValue, pizzas, itemsLoading } = useContext(AppContext);
-  const { sortBy, activeCategory } = useSelector(state => state.filter);
+  const { pizzas, itemsLoading } = useContext(AppContext);
+  const { sortBy, activeCategory, searchValue } = useSelector(state => state.filter);
 
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ export default function Main() {
         sortBy, activeCategory
       });
       navigate(`?${queryString}`);
-    } else if (initialState.activeCategory !== activeCategory || initialState.sortBy !== sortBy) {
+    } else if (mainState.activeCategory !== activeCategory || mainState.sortBy !== sortBy) {
       const queryString = qs.stringify({
         sortBy, activeCategory
       });

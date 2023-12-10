@@ -1,20 +1,20 @@
-import { useEffect, useState, useRef, useContext, useMemo } from 'react';
-import { AppContext } from '../App';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import debounce from 'lodash.debounce';
 import styles from './Search.module.scss';
+import { useSelector, useDispatch } from "react-redux";
+import { setSearchValue } from "../Redux/Slices/filterSlice";
 
 
 export default function Search() {
+  console.log("rendred")
 
-  const { searchValue, setSearchValue } = useContext(AppContext);
+  const { searchValue } = useSelector(state => state.filter);
   const [nowValue, setNowValue] = useState('');
   const inputRef = useRef();
 
-  useEffect(() => {
-    setSearchValue('');
-  }, [setSearchValue]);
+  const dispatch = useDispatch();
 
-  const getSearchItems = useMemo(() => debounce((value) => setSearchValue(value), 500), [setSearchValue]);
+  const getSearchItems = useMemo(() => debounce((value) => dispatch(setSearchValue(value)), 500), [dispatch]);
 
   const onChangeSearchInput = (event) => {
     setNowValue(event.target.value);
@@ -22,10 +22,15 @@ export default function Search() {
   };
 
   const onReset = () => {
-    setSearchValue('');
-    setNowValue('');
+    dispatch(setSearchValue(''));
     inputRef.current.focus();
   };
+
+  useEffect(() => {
+    if (!searchValue) {
+      setNowValue("");
+    };
+  }, [searchValue]);
 
 
   return (

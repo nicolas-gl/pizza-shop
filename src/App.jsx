@@ -36,7 +36,6 @@ export function App() {
   const [items, setItems] = useState([]);
   const [itemsLoading, setItemsLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
-  const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
     axios.get('https://63da6dca2af48a60a7cd9696.mockapi.io/main/pizzas')
@@ -107,8 +106,6 @@ export function App() {
         delFromCart,
         decrease,
         cartItems,
-        searchValue,
-        setSearchValue
       }}
     >
       <RouterProvider

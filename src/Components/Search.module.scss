@@ -17,6 +17,10 @@
     font-size: 80%;
   }
 
+  @media (max-width: 500px) {
+    order: 1;
+  }
+
   img {
     margin-left: 14px;
 

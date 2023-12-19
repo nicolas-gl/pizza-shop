@@ -20,7 +20,6 @@ export const mainState = {
 const filterSlice = createSlice({
   name: "filter",
   initialState: URLparams ? initialStateFromURL : mainState,
-
   reducers: {
     setActiveCategory(state, action) {
       state.activeCategory = action.payload;
@@ -35,6 +34,7 @@ const filterSlice = createSlice({
   }
 });
 
+export const selectFilter = state => state.filter
 
 export const { setActiveCategory, setSortBy, setSearchValue, resetState } = filterSlice.actions;
 

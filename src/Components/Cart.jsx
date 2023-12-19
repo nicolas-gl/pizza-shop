@@ -5,8 +5,14 @@ import styles from './Cart.module.scss'
 
 export default function Cart() {
 
-  const { cartItems, addToCart, delFromCart, decrease } = useContext(AppContext);
+  const { cartItems, addToCart, delFromCart, decrement } = useContext(AppContext);
   cartItems.sort((a, b) => (a.title.localeCompare(b.title) || a.dough.localeCompare(b.dough) || a.size - b.size))
+
+  const onClickClearCart = () => {
+    if (window.confirm('Are you sure want to delete all your Pizzas?')) {
+      delFromCart();
+    }
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -15,7 +21,7 @@ export default function Cart() {
           <img width='29px' src="assets/img/icons/cart.svg" alt="cart" />
           <h1>Cart</h1>
         </div>
-        <button className={styles.right} onClick={() => delFromCart()}>
+        <button className={styles.right} onClick={onClickClearCart}>
           <img src="assets/img/icons/cart-clear.svg" alt="cart-clear" />
           <p>Clear cart</p>
         </button>
@@ -24,7 +30,7 @@ export default function Cart() {
         <Block
           addToCart={addToCart}
           delFromCart={delFromCart}
-          decrease={decrease}
+          decrement={decrement}
           key={index}
           {...item}
         />)}
@@ -34,11 +40,11 @@ export default function Cart() {
 
 
 
-function Block({ quantity, imgUrl, sku, id, title, size, price, dough, imgAlt, addToCart, delFromCart, decrease }) {
+function Block({ quantity, imgUrl, sku, id, title, size, price, dough, imgAlt, addToCart, delFromCart, decrement }) {
 
   const onMinusClicked = () => {
     if (quantity > 1) {
-      decrease({ title, sku, id, size, price, imgUrl, imgAlt, dough })
+      decrement({ title, sku, id, size, price, imgUrl, imgAlt, dough })
     } else {
       delFromCart({ title, sku, id, size, price, imgUrl, imgAlt, dough })
     }

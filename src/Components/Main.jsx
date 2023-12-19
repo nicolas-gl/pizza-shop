@@ -2,20 +2,19 @@ import styles from './Main.module.scss'
 import Card from './Card';
 import Categories from './Categories';
 import Sort from './Sort';
-import { AppContext } from '../App';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from "react-redux";
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import { mainState } from "../Redux/Slices/filterSlice";
+import { mainState, selectFilter } from "../Redux/Slices/filterSlice";
 
 
 export default function Main() {
 
   const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
 
-  const { pizzas, itemsLoading } = useContext(AppContext);
-  const { sortBy, activeCategory, searchValue } = useSelector(state => state.filter);
+  const { sortBy, activeCategory, searchValue } = useSelector(selectFilter);
+  const { items, status } = useSelector(state => state.pizzas);
 
   const navigate = useNavigate();
 
@@ -64,24 +63,25 @@ export default function Main() {
 
       <h1>{`${activeCategory} pizzas`}</h1>
       <section className={styles.content}>
-        {itemsLoading
+        {status === 'error' ? <div>Error</div> : null}
+        {status === 'loading'
           ? [...Array(12)].map((_, index) =>
             <Card
               key={index}
               itemsLoading={true}
             />)
-
-          : pizzas.sort((a, b) => sorting(a, b)).filter(
-            item => item.title.toLowerCase().includes(searchValue.toLowerCase()) && (
-              activeCategory === 'All' || item.properties.includes(activeCategory.toLowerCase())
-            )
-          ).map((item) =>
-            <Card
-              key={item.sku}
-              itemsLoading={false}
-              {...item}
-            />
-          )
+          : [...items]
+            .sort((a, b) => sorting(a, b))
+            .filter(
+              item => item.title.toLowerCase().includes(searchValue.toLowerCase()) && (
+                activeCategory === 'All' || item.properties.includes(activeCategory.toLowerCase())
+              ))
+            .map((item) =>
+              <Card
+                key={item.sku}
+                itemsLoading={false}
+                {...item}
+              />)
         }
       </section>
     </>

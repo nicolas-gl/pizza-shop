@@ -2,13 +2,12 @@ import { useEffect, useState, useRef, useMemo } from 'react';
 import debounce from 'lodash.debounce';
 import styles from './Search.module.scss';
 import { useSelector, useDispatch } from "react-redux";
-import { setSearchValue } from "../Redux/Slices/filterSlice";
+import { selectFilter, setSearchValue } from "../Redux/Slices/filterSlice";
 
 
 export default function Search() {
-  console.log("rendred")
 
-  const { searchValue } = useSelector(state => state.filter);
+  const { searchValue } = useSelector(selectFilter);
   const [nowValue, setNowValue] = useState('');
   const inputRef = useRef();
 

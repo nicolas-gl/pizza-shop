@@ -1,5 +1,7 @@
 import { useState, useEffect, createContext } from 'react';
 import { createBrowserRouter, RouterProvider, Link, Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchPizzas } from "./Redux/Slices/pizzasSlice";
 import axios from 'axios';
 import styles from './App.module.scss';
 import Header from './Components/Header';
@@ -33,19 +35,16 @@ const router = createBrowserRouter([
 
 export function App() {
 
-  const [items, setItems] = useState([]);
-  const [itemsLoading, setItemsLoading] = useState(true);
+  const dispatch = useDispatch();
+
   const [cartItems, setCartItems] = useState([]);
 
+  const getItems = async () => {
+    dispatch(fetchPizzas());
+  }
+
   useEffect(() => {
-    axios.get('https://63da6dca2af48a60a7cd9696.mockapi.io/main/pizzas')
-      .then(res => {
-        setItems(res.data.items);
-        setItemsLoading(false);
-      })
-      .catch(error =>
-        console.log('error with items loading:', error)
-      );
+    dispatch(fetchPizzas());
     axios.get('https://63da6dca2af48a60a7cd9696.mockapi.io/additional/pizzas')
       .then(res => {
         setCartItems(res.data.cart);
@@ -73,7 +72,7 @@ export function App() {
       );
   };
 
-  const decrease = (obj) => {
+  const decrement = (obj) => {
     cartItems[cartItems.findIndex((item) => (item["sku"] === obj["sku"] && item["size"] === obj["size"] && item["dough"] === obj["dough"]))].quantity--;
     let now = cartItems;
     axios.put("https://63da6dca2af48a60a7cd9696.mockapi.io/additional/pizzas", { "cart": now })
@@ -100,11 +99,9 @@ export function App() {
   return (
     <AppContext.Provider
       value={{
-        pizzas: items,
-        itemsLoading,
         addToCart,
         delFromCart,
-        decrease,
+        decrement,
         cartItems,
       }}
     >

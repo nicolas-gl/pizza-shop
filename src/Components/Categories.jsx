@@ -1,13 +1,13 @@
 import styles from './Categories.module.scss'
 import { useSelector, useDispatch } from "react-redux";
-import { setActiveCategory } from "../Redux/Slices/filterSlice"
+import { selectFilter, setActiveCategory } from "../Redux/Slices/filterSlice"
 
 
 export default function Categories() {
 
   const categories = ["All", "Vegetarian", "Meat", "Spicy", "Seafood"];
 
-  const activeCategory = useSelector(state => state.filter.activeCategory);
+  const { activeCategory } = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   const makeActive = (category) => {

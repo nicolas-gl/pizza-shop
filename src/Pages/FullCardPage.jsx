@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
-import Main from '../Components/Main';
+import FullCard from '../Components/FullCard';
 
-
-export default function HomePage() {
+export default function FullCardPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
   return (
-    <Main />
+    <FullCard />
   )
 }

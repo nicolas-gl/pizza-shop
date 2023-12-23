@@ -1,12 +1,12 @@
 import { useState, useContext, useRef } from 'react'
+import { Link } from 'react-router-dom';
 import { AppContext } from '../App';
 import Skeleton from './Skeleton'
 import styles from './Card.module.scss'
 
 
-export default function Card({ sku, title, imgUrl, imgAlt, size_price = [], itemsLoading }) {
+export default function Card({ id, sku, title, imgUrl, imgAlt, size_price = [], itemsLoading }) {
 
-  const { addToCart } = useContext(AppContext);
   const addButtonRef = useRef();
   const addDivRef = useRef();
 
@@ -14,7 +14,7 @@ export default function Card({ sku, title, imgUrl, imgAlt, size_price = [], item
 
     const node = addButtonRef.current;
     const clone = node.cloneNode(true);
-    clone.innerHTML = "your pizza";
+    clone.innerHTML = "Your pizza";
     clone.classList.toggle(`${styles.clone}`);
     addDivRef.current.appendChild(clone);
 
@@ -52,10 +52,12 @@ export default function Card({ sku, title, imgUrl, imgAlt, size_price = [], item
     );
   };
 
+
   const sizes = Object.keys(size_price);
   const doughs = ["Thin", "Usual"];
 
-  const [activeDough, setActiveDough] = useState('Thin');
+  const { addToCart } = useContext(AppContext);
+  const [activeDough, setActiveDough] = useState(doughs[0]);
   const [activeSize, setActiveSize] = useState(sizes[Math.ceil((sizes.length + 1) / 2) - 1]);
 
   const onAddClicked = () => {
@@ -69,8 +71,15 @@ export default function Card({ sku, title, imgUrl, imgAlt, size_price = [], item
       {itemsLoading
         ? <Skeleton />
         : <>
-          <img width={260} height={260} src={imgUrl} alt={imgAlt} />
-          <h2>{title}</h2>
+
+          <Link to={`/pizzas/${id}`}>
+            <img width={260} height={260} src={`${window.location.origin}/${imgUrl}`} alt={imgAlt} />
+          </Link>
+
+          <Link to={`/pizzas/${id}`}>
+            <h2>{title}</h2>
+          </Link>
+
           <ul className={styles.itemParams}>
             <li className={styles.param}>
               {doughs.map((dough) => (

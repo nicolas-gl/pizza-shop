@@ -7,6 +7,7 @@ import styles from './App.module.scss';
 import Header from './Components/Header';
 import HomePage from './Pages/HomePage';
 import CartPage from './Pages/CartPage';
+import FullCardPage from './Pages/FullCardPage';
 
 
 export const AppContext = createContext({});
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         path: "/cart",
         element: <CartPage />,
       },
+      {
+        path: "/pizzas/:id",
+        element: <FullCardPage />,
+      }
     ],
   },
 ]);
@@ -36,12 +41,7 @@ const router = createBrowserRouter([
 export function App() {
 
   const dispatch = useDispatch();
-
   const [cartItems, setCartItems] = useState([]);
-
-  const getItems = async () => {
-    dispatch(fetchPizzas());
-  }
 
   useEffect(() => {
     dispatch(fetchPizzas());
@@ -52,7 +52,7 @@ export function App() {
       .catch(error =>
         console.log('error with cart items loading:', error)
       );
-  }, []);
+  }, [dispatch]);
 
   const addToCart = (obj) => {
     let now;

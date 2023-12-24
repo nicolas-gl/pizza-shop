@@ -12,7 +12,7 @@ export default function FullCard() {
 
   return (
     <>
-      <div>FullCard</div>
+      <h2>FullCard</h2>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A mollitia porro dolores! Dolores, voluptatibus totam? Nostrum porro laboriosam asperiores placeat fugiat odio? Quas molestias nesciunt modi iusto eligendi odio fugiat.</p>
 
       {status === 'success'

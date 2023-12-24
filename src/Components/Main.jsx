@@ -62,8 +62,8 @@ export default function Main() {
       </div>
 
       <h1>{`${activeCategory} pizzas`}</h1>
+      {status === 'error' ? <p className={styles.error}>Getting pizzas error. Try again a little later!</p> : null}
       <section className={styles.content}>
-        {status === 'error' ? <div>Error</div> : null}
         {status === 'loading'
           ? [...Array(12)].map((_, index) =>
             <Card

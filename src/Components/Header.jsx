@@ -24,7 +24,7 @@ export default function Header() {
         onClick={() => dispatch(resetState())}
       >
         <div className={styles.headerBrand}>
-          <img width={38} height={38} src="assets/img/icons/logo.svg" alt='logo' />
+          <img width={38} height={38} src={`${window.location.origin}/assets/img/icons/logo.svg`} alt='logo' />
           <div>
             <h3>Best PIZZA shop</h3>
             <p>The most tasty pizza in the Universe</p>

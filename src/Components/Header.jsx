@@ -12,11 +12,11 @@ export default function Header() {
   const dispatch = useDispatch();
 
   const { cartItems } = useContext(AppContext);
+  const { pathname } = useLocation();
 
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-  let location = useLocation();
 
   return (
     <header>
@@ -33,7 +33,7 @@ export default function Header() {
       </Link>
 
       {
-        location.pathname[1] ? null : <Search />
+        pathname[1] ? null : <Search />
       }
 
       <Link to="/cart" >

@@ -1,12 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import qs from 'qs';
+import { RootState } from "../store";
 
 
 const URLparams = window.location.search.substring(1);
 
-const initialStateFromURL = {
-  activeCategory: qs.parse(URLparams).activeCategory,
-  sortBy: qs.parse(URLparams).sortBy,
+interface FilterState {
+  activeCategory: string
+  sortBy: string,
+  searchValue: string
+}
+
+const initialStateFromURL: FilterState = {
+  activeCategory: String(qs.parse(URLparams).activeCategory),
+  sortBy: String(qs.parse(URLparams).sortBy),
   searchValue: ""
 };
 
@@ -21,20 +28,20 @@ const filterSlice = createSlice({
   name: "filter",
   initialState: URLparams ? initialStateFromURL : mainState,
   reducers: {
-    setActiveCategory(state, action) {
+    setActiveCategory(state, action: PayloadAction<string>) {
       state.activeCategory = action.payload;
     },
-    setSortBy(state, action) {
+    setSortBy(state, action: PayloadAction<string>) {
       state.sortBy = action.payload;
     },
-    setSearchValue(state, action) {
+    setSearchValue(state, action: PayloadAction<string>) {
       state.searchValue = action.payload;
     },
     resetState: () => mainState
   }
 });
 
-export const selectFilter = state => state.filter
+export const selectFilter = (state: RootState) => state.filter
 
 export const { setActiveCategory, setSortBy, setSearchValue, resetState } = filterSlice.actions;
 

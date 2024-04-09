@@ -1,20 +1,23 @@
+import qs from 'qs';
+import { useEffect } from 'react';
+import { useAppSelector } from "../hooks";
+import { useNavigate } from 'react-router-dom';
+import { mainState } from "../Redux/Slices/filterSlice";
+import { Status } from "../Redux/Slices/pizzasSlice"
 import styles from './Main.module.scss'
 import Card from './Card';
 import Categories from './Categories';
 import Sort from './Sort';
-import { useEffect } from 'react';
-import { useSelector } from "react-redux";
-import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
-import { mainState, selectFilter } from "../Redux/Slices/filterSlice";
+import Skeleton from './Skeleton'
 
 
-export default function Main() {
+const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
 
-  const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
 
-  const { sortBy, activeCategory, searchValue } = useSelector(selectFilter);
-  const { items, status } = useSelector(state => state.pizzas);
+export default function Main(): React.ReactNode {
+
+  const { sortBy, activeCategory, searchValue } = useAppSelector(state => state.filter);
+  const { items, status } = useAppSelector(state => state.pizzas);
 
   const navigate = useNavigate();
 
@@ -32,7 +35,18 @@ export default function Main() {
     };
   }, [navigate, sortBy, activeCategory]);
 
-  const sorting = (item1, item2) => {
+  type Item = {
+    id: number;
+    imgAlt: string;
+    imgUrl: string;
+    properties: string[];
+    // size_price: { [index: string]: number };
+    size_price: Record<string, number>;
+    sku: number;
+    title: string;
+  }
+
+  const sorting = (item1: Item, item2: Item) => {
     if (sortBy === "alphabetically") {
       return item1.title.localeCompare(item2.title);
     } else if (sortBy === "popularity") {
@@ -44,6 +58,7 @@ export default function Main() {
     const midSize2 = sizes2[Math.ceil((sizes2.length + 1) / 2) - 1];
     if (sortBy === "price (low-high)") {
       return item1.size_price[midSize1] - item2.size_price[midSize2];
+
     } else if (sortBy === "price (high-low)") {
       return item2.size_price[midSize2] - item1.size_price[midSize1];
     }
@@ -62,15 +77,16 @@ export default function Main() {
       </div>
 
       <h1>{`${activeCategory} pizzas`}</h1>
-      {status === 'error' ? <p className={styles.error}>Getting pizzas error. Try again a little later!</p> : null}
-      <section className={styles.content}>
-        {status === 'loading'
-          ? [...Array(12)].map((_, index) =>
-            <Card
-              key={index}
-              itemsLoading={true}
-            />)
-          : [...items]
+
+      {status === Status.ERROR
+        ? <p className={styles.error}>Getting pizzas error. Try again a little later!</p>
+        : <section className={styles.content}>
+
+          {status === Status.LOADING && [...Array(12)]
+            .map((_, index) => <Skeleton key={index} />)
+          }
+
+          {status === Status.SUCESS && [...items]
             .sort((a, b) => sorting(a, b))
             .filter(
               item => item.title.toLowerCase().includes(searchValue.toLowerCase()) && (
@@ -79,11 +95,12 @@ export default function Main() {
             .map((item) =>
               <Card
                 key={item.sku}
-                itemsLoading={false}
                 {...item}
               />)
-        }
-      </section>
+          }
+
+        </section>
+      }
     </>
   )
 }

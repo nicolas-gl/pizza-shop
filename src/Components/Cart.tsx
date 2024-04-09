@@ -1,16 +1,16 @@
-import { useContext } from 'react'
-import { AppContext } from '../App';
+import { useGetCartContext } from '../App';
 import styles from './Cart.module.scss'
+import { CartPizza } from '../App';
 
 
-export default function Cart() {
+const Cart: React.FC = () => {
 
-  const { cartItems, addToCart, delFromCart, decrement } = useContext(AppContext);
-  cartItems.sort((a, b) => (a.title.localeCompare(b.title) || a.dough.localeCompare(b.dough) || a.size - b.size))
+  const { cartItems, clearCart } = useGetCartContext();
+  cartItems.sort((a: CartPizza, b: CartPizza) => (a.title.localeCompare(b.title) || a.dough.localeCompare(b.dough) || a.size - b.size))
 
   const onClickClearCart = () => {
     if (window.confirm('Are you sure want to delete all your Pizzas?')) {
-      delFromCart();
+      clearCart();
     }
   }
 
@@ -26,11 +26,8 @@ export default function Cart() {
           <p>Clear cart</p>
         </button>
       </div>
-      {cartItems.map((item, index) =>
+      {cartItems.map((item, index: number) =>
         <Block
-          addToCart={addToCart}
-          delFromCart={delFromCart}
-          decrement={decrement}
           key={index}
           {...item}
         />)}
@@ -38,20 +35,24 @@ export default function Cart() {
   )
 }
 
+export default Cart;
 
 
-function Block({ quantity, imgUrl, sku, id, title, size, price, dough, imgAlt, addToCart, delFromCart, decrement }) {
+
+const Block: React.FC<CartPizza> = (props) => {
+
+  const { addToCart, delFromCart, decrement } = useGetCartContext();
 
   const onMinusClicked = () => {
-    if (quantity > 1) {
-      decrement({ title, sku, id, size, price, imgUrl, imgAlt, dough })
+    if (props.quantity > 1) {
+      decrement(props)
     } else {
-      delFromCart({ title, sku, id, size, price, imgUrl, imgAlt, dough })
+      delFromCart(props)
     }
   }
 
   const onPlusClicked = () => {
-    addToCart({ title, sku, id, size, price, imgUrl, imgAlt, dough })
+    addToCart(props)
   }
 
 
@@ -60,20 +61,20 @@ function Block({ quantity, imgUrl, sku, id, title, size, price, dough, imgAlt, a
       <div className={styles.separator}></div>
       <div className={styles.content}>
 
-        <img width={80} height={80} src={imgUrl} alt={imgAlt} />
+        <img width={80} height={80} src={props.imgUrl} alt={props.imgAlt} />
         <div className={styles.info}>
-          <h2>{title}</h2>
-          <p><b>{dough}</b> dough, <b>{size}</b> cm</p>
+          <h2>{props.title}</h2>
+          <p><b>{props.dough}</b> dough, <b>{props.size}</b> cm</p>
         </div>
 
         <button className={styles.add}>
           <div className={styles.minus} onClick={onMinusClicked}></div>
-          <p>{quantity}</p>
+          <p>{props.quantity}</p>
           <div className={styles.plus} onClick={onPlusClicked}></div>
         </button>
 
-        <p className={styles.price}><b>{price * quantity} ₽</b></p>
-        <button className={styles.delete} onClick={() => delFromCart({ sku, size, dough })}>
+        <p className={styles.price}><b>{props.price * props.quantity} ₽</b></p>
+        <button className={styles.delete} onClick={() => delFromCart(props)}>
           <div className={styles.x}></div>
         </button>
 

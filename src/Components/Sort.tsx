@@ -2,23 +2,28 @@ import { useState, useRef, useEffect } from 'react';
 import styles from './Sort.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { setSortBy, selectFilter } from "../Redux/Slices/filterSlice";
+import { useAppSelector, useAppDispatch } from "../hooks";
 
 
-export default function Sort({ list }) {
+type SortProps = {
+  list: string[]
+};
+
+const Sort: React.FC<SortProps> = ({ list }) => {
 
   const [opened, setOpened] = useState(false);
-  const { sortBy } = useSelector(selectFilter);
-  const dispatch = useDispatch();
-  const sortRef = useRef();
+  const { sortBy } = useAppSelector(state => state.filter);
+  const dispatch = useAppDispatch();
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const onParamClicked = (p) => {
-    dispatch(setSortBy(p));
+  const onParamClicked = (param: string) => {
+    dispatch(setSortBy(param));
     setOpened(false);
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (opened && !event.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (opened && sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpened(false);
       }
     }
@@ -53,3 +58,5 @@ export default function Sort({ list }) {
     </div>
   )
 }
+
+export default Sort

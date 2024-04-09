@@ -1,17 +1,17 @@
-import styles from './Header.module.scss';
-import { Link, useLocation } from "react-router-dom";
-import { useContext } from 'react';
-import { AppContext } from '../App';
-import Search from './Search';
-import { resetState } from "../Redux/Slices/filterSlice";
 import { useDispatch } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import styles from './Header.module.scss';
+import { useGetCartContext } from '../App';
+import { resetState } from "../Redux/Slices/filterSlice";
+import { AppDispatch } from '../Redux/store'
+import Search from './Search';
+
 
 
 export default function Header() {
 
-  const dispatch = useDispatch();
-
-  const { cartItems } = useContext(AppContext);
+  const dispatch = useDispatch<AppDispatch>();
+  const { cartItems } = useGetCartContext();
   const { pathname } = useLocation();
 
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);

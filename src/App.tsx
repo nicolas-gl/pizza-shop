@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from './hooks.ts';
 import { fetchPizzas } from "./Redux/Slices/pizzasSlice";
 import axios from 'axios';
 import styles from './App.module.scss';
@@ -9,7 +9,6 @@ import HomePage from './Pages/HomePage.tsx';
 import CartPage from './Pages/CartPage.tsx';
 import FullCardPage from './Pages/FullCardPage.tsx';
 import NotFoundPage from './Pages/NotFoundPage.tsx';
-import type { AppDispatch } from './Redux/store'
 
 
 export type CartPizza = {
@@ -66,10 +65,11 @@ const router = createBrowserRouter([
 ]);
 
 
-export function App() {
+
+export default function App() {
 
   const [cartItems, setCartItems] = useState<CartPizza[]>([]);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchPizzas());
@@ -137,7 +137,6 @@ export function App() {
       );
   };
 
-
   return (
     <CartContext.Provider
       value={{
@@ -152,7 +151,7 @@ export function App() {
         router={router}
       />
     </CartContext.Provider>
-  );
+  )
 };
 
 

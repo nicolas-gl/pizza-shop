@@ -1,15 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, memo } from 'react';
 import styles from './Sort.module.scss';
-import { useSelector, useDispatch } from "react-redux";
-import { setSortBy, selectFilter } from "../Redux/Slices/filterSlice";
+import { setSortBy } from "../Redux/Slices/filterSlice";
 import { useAppSelector, useAppDispatch } from "../hooks";
+import React from 'react';
+import { sortParams } from '../Redux/Slices/filterSlice';
 
 
-type SortProps = {
-  list: string[]
-};
-
-const Sort: React.FC<SortProps> = ({ list }) => {
+const Sort: React.FC = memo(() => {
 
   const [opened, setOpened] = useState(false);
   const { sortBy } = useAppSelector(state => state.filter);
@@ -43,7 +40,7 @@ const Sort: React.FC<SortProps> = ({ list }) => {
       {opened
         ? <div className={styles.popup}>
           <ul>
-            {list.map(param =>
+            {sortParams.map(param =>
               <li
                 key={param}
                 onClick={() => onParamClicked(param)}
@@ -57,6 +54,6 @@ const Sort: React.FC<SortProps> = ({ list }) => {
       }
     </div>
   )
-}
+})
 
 export default Sort

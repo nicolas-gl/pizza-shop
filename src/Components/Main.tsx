@@ -11,10 +11,7 @@ import Sort from './Sort';
 import Skeleton from './Skeleton'
 
 
-const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
-
-
-export default function Main(): React.ReactNode {
+export const Main: React.FC = () => {
 
   const { sortBy, activeCategory, searchValue } = useAppSelector(state => state.filter);
   const { items, status } = useAppSelector(state => state.pizzas);
@@ -40,11 +37,11 @@ export default function Main(): React.ReactNode {
     imgAlt: string;
     imgUrl: string;
     properties: string[];
-    // size_price: { [index: string]: number };
     size_price: Record<string, number>;
     sku: number;
     title: string;
   }
+
 
   const sorting = (item1: Item, item2: Item) => {
     if (sortBy === "alphabetically") {
@@ -64,16 +61,14 @@ export default function Main(): React.ReactNode {
     }
     console.log(`!!!Have no algorithm for ${sortBy} sotring`);
     return item1.title.localeCompare(item2.title);
-  };
+  }
 
 
   return (
     <>
       <div className={styles.mainHeader}>
         <Categories />
-        <Sort
-          list={sortParams}
-        />
+        <Sort />
       </div>
 
       <h1>{`${activeCategory} pizzas`}</h1>
@@ -98,9 +93,9 @@ export default function Main(): React.ReactNode {
                 {...item}
               />)
           }
-
         </section>
       }
     </>
   )
 }
+

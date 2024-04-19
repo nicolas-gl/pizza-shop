@@ -23,6 +23,9 @@ export const mainState = {
   searchValue: ""
 };
 
+export const categories = ["All", "Vegetarian", "Meat", "Spicy", "Seafood"];
+export const sortParams = ["popularity", "alphabetically", "price (low-high)", "price (high-low)"];
+
 
 const filterSlice = createSlice({
   name: "filter",

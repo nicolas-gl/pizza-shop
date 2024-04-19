@@ -1,19 +1,18 @@
+import { useCallback, memo } from 'react';
+import { setActiveCategory } from "../Redux/Slices/filterSlice"
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { categories } from '../Redux/Slices/filterSlice';
 import styles from './Categories.module.scss'
-import { useSelector, useDispatch } from "react-redux";
-import { selectFilter, setActiveCategory } from "../Redux/Slices/filterSlice"
-import { useAppSelector } from "../hooks";
 
 
-export default function Categories() {
-
-  const categories = ["All", "Vegetarian", "Meat", "Spicy", "Seafood"];
+const Categories = memo(function Categories() {
 
   const { activeCategory } = useAppSelector(state => state.filter);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const makeActive = (category: string) => {
+  const makeActive = useCallback((category: string) => {
     dispatch(setActiveCategory(category));
-  };
+  }, [dispatch])
 
 
   return (
@@ -25,4 +24,6 @@ export default function Categories() {
       )}
     </div>
   )
-}
+});
+
+export default Categories

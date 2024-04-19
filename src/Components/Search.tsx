@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef, useMemo } from 'react';
 import debounce from 'lodash.debounce';
 import styles from './Search.module.scss';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectFilter, setSearchValue } from "../Redux/Slices/filterSlice";
+import { useAppDispatch } from '../hooks';
 
 
 export default function Search() {
@@ -11,7 +12,7 @@ export default function Search() {
   const [nowValue, setNowValue] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const getSearchItems = useMemo(() => debounce((value) => dispatch(setSearchValue(value)), 500), [dispatch]);
 
@@ -45,5 +46,6 @@ export default function Search() {
         onChange={onChangeSearchInput}
         value={nowValue}
         placeholder="Find your Best..." />
-    </div>)
+    </div>
+  )
 }

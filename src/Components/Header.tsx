@@ -1,16 +1,16 @@
-import { useDispatch } from "react-redux";
+
 import { Link, useLocation } from "react-router-dom";
+import { resetState } from "../Redux/Slices/filterSlice";
+import { useAppDispatch } from "../hooks";
 import styles from './Header.module.scss';
 import { useGetCartContext } from '../App';
-import { resetState } from "../Redux/Slices/filterSlice";
-import { AppDispatch } from '../Redux/store'
 import Search from './Search';
-
 
 
 export default function Header() {
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
+
   const { cartItems } = useGetCartContext();
   const { pathname } = useLocation();
 

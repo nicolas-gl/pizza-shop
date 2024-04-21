@@ -39,7 +39,7 @@ export default Cart;
 
 
 
-const Block: React.FC<CartPizza> = (props) => {
+const Block: React.FC<CartPizza> = (props: CartPizza) => {
 
   const { addToCart, delFromCart, decrement } = useGetCartContext();
 

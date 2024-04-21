@@ -2,7 +2,6 @@ import { useState, useEffect, createContext, useContext } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { useAppDispatch } from './hooks.ts';
 import { fetchPizzas } from "./Redux/Slices/pizzasSlice";
-import axios from 'axios';
 import styles from './App.module.scss';
 import Header from './Components/Header.tsx';
 import HomePage from './Pages/HomePage.tsx';
@@ -65,76 +64,48 @@ const router = createBrowserRouter([
 ]);
 
 
-
 export default function App() {
 
   const [cartItems, setCartItems] = useState<CartPizza[]>([]);
   const dispatch = useAppDispatch();
 
+
   useEffect(() => {
     dispatch(fetchPizzas());
-    axios.get('https://63da6dca2af48a60a7cd9696.mockapi.io/additional/pizzas')
-      .then(res => {
-        setCartItems(res.data.cart);
-      })
-      .catch(error =>
-        console.log('error with cart items loading: ', error)
-      );
+    let cartItemsJSON = window.localStorage.getItem('cartItems')
+    if (cartItemsJSON) {
+      setCartItems(JSON.parse(cartItemsJSON))
+    }
   }, [dispatch]);
+
+  useEffect(() => {
+    window.localStorage.setItem('cartItems', JSON.stringify(cartItems))
+  }, [cartItems]);
 
 
   const addToCart = (obj: CartPizza) => {
-    let now = cartItems;
-    let addingPizza2 = cartItems.find((item) => (item["sku"] === obj["sku"] && item["size"] === obj["size"] && item["dough"] === obj["dough"]))
-
-    if (addingPizza2) {
-      addingPizza2["quantity"]++
+    let addingPizza = cartItems.find((item) => (item["sku"] === obj["sku"] && item["size"] === obj["size"] && item["dough"] === obj["dough"]))
+    if (addingPizza) {
+      addingPizza["quantity"]++
+      setCartItems([...cartItems])
     } else {
       obj["quantity"] = 1;
-      now = [...cartItems, obj]
+      setCartItems(prev => [...prev, obj])
     };
-
-    axios.put("https://63da6dca2af48a60a7cd9696.mockapi.io/additional/pizzas", { "cart": now })
-      .then(res => {
-        setCartItems(res.data.cart);
-      })
-      .catch(error =>
-        console.log('error when adding to cart: ', error)
-      );
   };
 
-
   const decrement = (obj: CartPizza) => {
-    cartItems[cartItems.findIndex((item) => (item["sku"] === obj["sku"] && item["size"] === obj["size"] && item["dough"] === obj["dough"]))].quantity--;
-    let now = cartItems;
-    axios.put("https://63da6dca2af48a60a7cd9696.mockapi.io/additional/pizzas", { "cart": now })
-      .then(res => {
-        setCartItems(res.data.cart);
-      })
-      .catch(error =>
-        console.log('error when adding to cart: ', error)
-      );
+    let nowItems = [...cartItems]
+    nowItems[nowItems.findIndex((item) => (item["sku"] === obj["sku"] && item["size"] === obj["size"] && item["dough"] === obj["dough"]))].quantity--;
+    setCartItems([...nowItems]);
   };
 
   const delFromCart = (obj: CartPizza) => {
-    let now = [...cartItems.filter(item => !(item.sku === obj.sku && item.size === obj.size && item.dough === obj.dough))];
-    axios.put(`https://63da6dca2af48a60a7cd9696.mockapi.io/additional/${"pizzas"}`, { "cart": now })
-      .then(res => {
-        setCartItems(res.data.cart);
-      })
-      .catch(error =>
-        console.log('error when deliting from cart: ', error)
-      );
+    setCartItems(prev => [...prev.filter(item => !(item.sku === obj.sku && item.size === obj.size && item.dough === obj.dough))])
   };
 
   const clearCart = () => {
-    axios.put(`https://63da6dca2af48a60a7cd9696.mockapi.io/additional/${"pizzas"}`, { "cart": [] })
-      .then(res => {
-        setCartItems(res.data.cart);
-      })
-      .catch(error =>
-        console.log('error when clearing cart: ', error)
-      );
+    setCartItems([]);
   };
 
   return (
@@ -156,6 +127,7 @@ export default function App() {
 
 
 function Content() {
+
   return (
     <div className={styles.wrapper}>
       <Header />

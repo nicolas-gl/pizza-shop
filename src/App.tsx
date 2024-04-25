@@ -1,13 +1,14 @@
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect, createContext, useContext, lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { useAppDispatch } from './hooks.ts';
 import { fetchPizzas } from "./Redux/Slices/pizzasSlice";
 import styles from './App.module.scss';
-import Header from './Components/Header.tsx';
-import HomePage from './Pages/HomePage.tsx';
-import CartPage from './Pages/CartPage.tsx';
-import FullCardPage from './Pages/FullCardPage.tsx';
-import NotFoundPage from './Pages/NotFoundPage.tsx';
+import Header from './Components/Header';
+
+const HomePage = lazy(() => import(/* webpackChunkName: "HomePage" */ './Pages/HomePage'));
+const CartPage = lazy(() => import(/* webpackChunkName: "CartPage" */ './Pages/CartPage'));
+const FullCardPage = lazy(() => import(/* webpackChunkName: "FullCardPage" */ './Pages/FullCardPage'));
+const NotFoundPage = lazy(() => import(/* webpackChunkName: "NotFoundPage" */ './Pages/NotFoundPage'));
 
 
 export type CartPizza = {
@@ -42,7 +43,7 @@ export const useGetCartContext = () => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Content />,
+    element: <Suspense fallback={<div>Loading...</div>}> <Content /> </Suspense>,
     errorElement:
       <NotFoundPage />
     ,
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+        // element: <Suspense fallback={<div>Loading...</div>}>
+        //   <HomePage />
+        // </Suspense>,
+
       },
       {
         path: "/cart",
@@ -81,7 +86,6 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem('cartItems', JSON.stringify(cartItems))
   }, [cartItems]);
-
 
   const addToCart = (obj: CartPizza) => {
     let addingPizza = cartItems.find((item) => (item["sku"] === obj["sku"] && item["size"] === obj["size"] && item["dough"] === obj["dough"]))

@@ -12,7 +12,7 @@ Header {
   }
 
   @media (max-width: 500px) {
-    height: 130px;
+    gap: 1em;
     flex-direction: column;
     justify-content: space-between;
     padding: 15px;

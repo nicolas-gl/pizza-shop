@@ -43,7 +43,7 @@ export const useGetCartContext = () => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Suspense fallback={<div>Loading...</div>}> <Content /> </Suspense>,
+    element: <Content />,
     errorElement:
       <NotFoundPage />
     ,
@@ -51,18 +51,18 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
-        // element: <Suspense fallback={<div>Loading...</div>}>
-        //   <HomePage />
-        // </Suspense>,
-
       },
       {
         path: "/cart",
-        element: <CartPage />,
+        element: <Suspense fallback={<div>Loading...</div>}>
+          <CartPage />
+        </Suspense>,
       },
       {
         path: "/pizzas/:id",
-        element: <FullCardPage />,
+        element: <Suspense fallback={<div>Loading...</div>}>
+          <FullCardPage />,
+        </Suspense>,
       }
     ],
   },
